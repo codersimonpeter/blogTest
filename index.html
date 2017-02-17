@@ -1,13 +1,14 @@
 ---
 layout: default
 title: 首页
-des: des
 ---
 <div>
-1
 {% for post in site.posts %}
-	<li>{{ post.date | date_to_string }}
-		<a href="{{ site.baseurl }}{{ post.url}}">{{ post.title }}</a>
-	</li>
-{% endfor %}
+	<div>
+		<a href="{{ post.url }}">
+			<h3>{{ post.title }}<small>{{ post.date | date_to_string }}</small></h3>
+		</a>
+		<p>{{ post.description }}</p>
+	</div>
+{% endfor %}	
 </div>
