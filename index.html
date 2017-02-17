@@ -4,11 +4,10 @@ title: 首页
 des: des
 ---
 <div>
+1
 {% for post in site.posts %}
-	<a href="{{ site.baseurl }} {{ post.url }}">
-		<h2>{{ post.title }}</h2>
-	</a>
-	<h4>{{ post.date | date_to_string }}</h4>
-	<h4>{{post.des}}</h4>
-{% endfor %}	
+	<li>{{ post.date | date_to_string }}
+		<a href="{{ site.baseurl }}{{ post.url}}">{{ post.title }}</a>
+	</li>
+{% endfor %}
 </div>
