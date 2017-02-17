@@ -1,0 +1,128 @@
+---
+layout: default
+title: 点名器
+des: 这是一个点名器
+---
+	<style type="text/css">
+		*{margin: 0;padding: 0}
+		.bo{
+			border: 1px black solid;
+		}
+		#box{
+			width: 400px;
+			height: 100px;
+			text-align: center;
+			background-color: #38f;
+			color: black;
+			line-height: 100px;
+			margin: 20px auto;
+			font-size: 50px;
+		}
+		h1{
+			font-size: 80px;
+			text-align: center;
+			margin: 100px auto;
+			color: #7ff;
+		}
+		#func{
+			
+			margin: 0 auto;
+			text-align: center;
+		}
+		#start{
+			height: 30px;
+			width: 100px;
+			font-size: 20px;
+		}
+		#stop{
+			height: 30px;
+			width: 100px;
+			font-size: 20px;
+		}
+		#list-area{
+			width: 200px;
+			height: auto;
+			margin:10px auto;
+		}
+		#hidden-btn{
+			width: 100%;
+			height: 30px;
+			/*border: none;*/
+		}
+		#list{
+			background-color: white;
+
+			display: none;
+		}
+	</style>
+
+	<h1 onclick="reload()" style="cursor: pointer;">点名器</h1>
+	<div id="box">
+		点名器
+	</div>
+	<div id="func">
+		<button id = 'start'>开始</button>
+		<button id = 'stop'>停止</button>
+	</div>
+	<div id="list-area" class="bo">
+		<button id="hidden-btn" onclick="hiddenlist()">显示列表</button>
+	<div id="list"></div>
+	</div>
+	
+	<script type="text/javascript">
+
+		var startBtn = document.getElementById('start');
+		var stopBtn = document.getElementById('stop');
+		var box = document.getElementById('box');
+		var list = document.getElementById("list");
+		var listIndex = 0,currentIndex = 0;
+		var timer = null,scrolling = false,listHiddened = true;
+		var hiddenBtn = document.getElementById("hidden-btn");
+		//在这里输入学生名单
+		var students = ['陈锐生','叶佳盛','江锦源','林欣','陈海辉','颜聪仪','陈盈','黄武远','聂嘉飞'];
+
+		startBtn.onclick = function (){
+			if (students.length === 0) {
+				alert("已经排序完毕,要重新排列请刷新页面！");
+				return;
+			}
+			if (timer) {clearInterval(timer);}
+			timer = setInterval(function (){
+				scrolling = true;
+				var randomIndex =  parseInt(Math.random()*(students.length+1)-1);
+				box.innerText = students[randomIndex];
+				currentIndex = randomIndex;
+			},60);
+		};
+		stopBtn.onclick = function (){
+			clearInterval(timer);
+
+			console.log(scrolling);
+			if (students.length === 0) {
+				alert("已经排序完毕,要重新排列请刷新页面！");
+				return;
+			}
+			if (!scrolling) {
+				return;
+			}
+			scrolling = false;
+			listIndex++;
+			list.innerHTML  = list.innerHTML+listIndex+",&nbsp;"+box.innerText+"<br>";
+			students.splice(currentIndex,1);
+		};
+		hiddenBtn.onclick = function(){
+			if (listHiddened) {
+				hiddenBtn.innerText = "隐藏列表";
+				list.style.display = "block";
+				listHiddened = false;
+			}
+			else{
+				hiddenBtn.innerText = "显示列表";
+				list.style.display = "none";
+				listHiddened = true;
+			}
+		}
+		function reload(){
+			window.location.reload();
+		}
+	</script>
